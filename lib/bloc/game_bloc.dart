@@ -17,6 +17,9 @@ class GameBloc extends Bloc<GameEvent, GameState> {
         indexList.add(event.index);
       numbersList[event.index] = counter;
       emit(ValueAdded(numbersList));
+      }else if(counter == 25){
+        numbersList[event.index] = 'X';
+        emit(ValueAdded(numbersList));
       }
     });
   }
