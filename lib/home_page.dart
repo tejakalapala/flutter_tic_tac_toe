@@ -1,8 +1,6 @@
 
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'bloc/game_bloc.dart';
 
 class HomePage extends StatelessWidget {
@@ -50,7 +48,7 @@ class HomePage extends StatelessWidget {
           child: BlocBuilder<GameBloc, GameState>(
             builder: (context, state) {
               if(state is ValueAdded){
-                print("series:${state.series}");
+                // print("series:${state.series}");
               }
               return CustomPaint(
                 foregroundPainter: LinePainter((state is ValueAdded)? state.series : []),
@@ -79,7 +77,6 @@ class HomePage extends StatelessWidget {
                           const Icon(Icons.cancel,color: Colors.red,size: 40,))
                           :const Text("")
                         )
-                        // Center(child: Text(state is ValueAdded ?  '${state.value[index]}':'')),
                             ),
                             
                             ),
@@ -210,7 +207,4 @@ class LinePainter extends  CustomPainter{
   
  @override
   bool shouldRepaint(LinePainter oldDelegate) => true;
-
-  
-
 }
