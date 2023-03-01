@@ -10,3 +10,4 @@ class ValueAdded extends GameState{
     ValueAdded(this.value,this.series);
    List<Object> get props => [value];
 }
+class GameEnded extends GameState{}

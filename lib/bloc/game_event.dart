@@ -5,3 +5,6 @@ class AddValue extends GameEvent{
   int index;
   AddValue(this.index);
 }
+class ResetGame extends GameEvent{
+  
+}

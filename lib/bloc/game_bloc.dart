@@ -1,67 +1,80 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_tic_tac_toe/constants.dart';
 part 'game_event.dart';
 part 'game_state.dart';
 
 class GameBloc extends Bloc<GameEvent, GameState> {
-  List numbersList = List.generate(25, (int index) => '');
+  List numbersList = List.generate(Constants.maxNumberLength, (int index) => '');
   List seriesList = [];
   List indexList = [];
   int counter =0 ;
+  List selectedList = [];
   GameBloc() : super(GameInitial()) {
     on<AddValue>((event, emit) {
-      
-      
-      if(counter < 25 && !indexList.contains(event.index)){
-        counter++;
+      if(counter < Constants.maxNumberLength && !indexList.contains(event.index)){
+        counter ++;
         indexList.add(event.index);
       numbersList[event.index] = counter;
       emit(ValueAdded(numbersList,seriesList));
-      }else if(counter == 25){
-        if(seriesList.length<12){
+      }else if(counter == Constants.maxNumberLength){
+        if(seriesList.length < Constants.maxLineLength){
         numbersList[event.index] = 'X';
+        if(!selectedList.contains(event.index)){
+        selectedList.add(event.index);
+        }
         checkSeries(numbersList);
         emit(ValueAdded(numbersList,seriesList));
         }
       }
     });
+     on<ResetGame>((event, emit) {
+      emit(GameInitial());
+      counter = 0;
+      numbersList = List.generate(Constants.maxNumberLength, (int index) => '');
+      indexList = [];
+      seriesList = [];
+      selectedList = [];
+      emit(ValueAdded(numbersList, []));
+     });
   }
 
   void checkSeries(List numbersList){
-    if(!seriesList.contains("row1") && numbersList[0] == "X" && numbersList[1] == "X" && numbersList[2] == "X" && numbersList[3] == "X" && numbersList[4] == "X"){
-      seriesList.add("row1");
+    if (!seriesList.contains(Constants.row1id) && Set.of(selectedList).containsAll(Constants.row1) ) {
+      seriesList.add(Constants.row1id);
     }
-    if(!seriesList.contains("row2") && numbersList[5] == "X" && numbersList[6] == "X" && numbersList[7] == "X" && numbersList[8] == "X" && numbersList[9] == "X"){
-      seriesList.add("row2");
+    if (!seriesList.contains(Constants.row2id) && Set.of(selectedList).containsAll(Constants.row2) ) {
+      seriesList.add(Constants.row2id);
     }
-    if(!seriesList.contains("row3") &&numbersList[10] == "X" && numbersList[11] == "X" && numbersList[12] == "X" && numbersList[13] == "X" && numbersList[14] == "X"){
-      seriesList.add("row3");
+    if (!seriesList.contains(Constants.row3id) && Set.of(selectedList).containsAll(Constants.row3) ) {
+      seriesList.add(Constants.row3id);
     }
-    if(!seriesList.contains("row4") && numbersList[15] == "X" && numbersList[16] == "X" && numbersList[17] == "X" && numbersList[18] == "X" && numbersList[19] == "X"){
-      seriesList.add("row4");
+    if (!seriesList.contains(Constants.row4id) && Set.of(selectedList).containsAll(Constants.row4) ) {
+      seriesList.add(Constants.row4id);
     }
-    if(!seriesList.contains("row5") && numbersList[20] == "X" && numbersList[21] == "X" && numbersList[22] == "X" && numbersList[23] == "X" && numbersList[24] == "X"){
-      seriesList.add("row5");
+    if (!seriesList.contains(Constants.row5id) && Set.of(selectedList).containsAll(Constants.row5) ) {
+      seriesList.add(Constants.row5id);
     }
-    if(!seriesList.contains("col1") && numbersList[0] == "X" && numbersList[5] == "X" && numbersList[10] == "X" && numbersList[15] == "X" && numbersList[20] == "X"){
-      seriesList.add("col1");
+    if (!seriesList.contains(Constants.col1id )&& Set.of(selectedList).containsAll(Constants.col1) ) {
+      seriesList.add(Constants.col1id);
     }
-    if(!seriesList.contains("col2") && numbersList[1] == "X" && numbersList[6] == "X" && numbersList[11] == "X" && numbersList[16] == "X" && numbersList[21] == "X"){
-      seriesList.add("col2");
+    if (!seriesList.contains(Constants.col2id) && Set.of(selectedList).containsAll(Constants.col2) ) {
+      seriesList.add(Constants.col2id);
     }
-    if(!seriesList.contains("col3") && numbersList[2] == "X" && numbersList[7] == "X" && numbersList[12] == "X" && numbersList[17] == "X" && numbersList[22] == "X"){
-      seriesList.add("col3");
+    if (!seriesList.contains(Constants.col3id) && Set.of(selectedList).containsAll(Constants.col3) ) {
+      seriesList.add(Constants.col3id);
     }
-    if(!seriesList.contains("col4") && numbersList[3] == "X" && numbersList[8] == "X" && numbersList[13] == "X" && numbersList[18] == "X" && numbersList[23] == "X"){
-      seriesList.add("col4");
+    if (!seriesList.contains(Constants.col4id) && Set.of(selectedList).containsAll(Constants.col4) ) {
+      seriesList.add(Constants.col4id);
     }
-    if(!seriesList.contains("col5") && numbersList[4] == "X" && numbersList[9] == "X" && numbersList[14] == "X" && numbersList[19] == "X" && numbersList[24] == "X"){
-      seriesList.add("col5");
+    if (!seriesList.contains(Constants.col5id) && Set.of(selectedList).containsAll(Constants.col5) ) {
+      seriesList.add(Constants.col5id);
     }
-    if(!seriesList.contains("dia1") && numbersList[0] == "X" && numbersList[6] == "X" && numbersList[12] == "X" && numbersList[18] == "X" && numbersList[24] == "X"){
-      seriesList.add("dia1");
+    if (!seriesList.contains(Constants.dia1id) && Set.of(selectedList).containsAll(Constants.dia1) ) {
+      seriesList.add(Constants.dia1id);
     }
-    if(!seriesList.contains("dia2") && numbersList[4] == "X" && numbersList[8] == "X" && numbersList[12] == "X" && numbersList[16] == "X" && numbersList[20] == "X"){
-      seriesList.add("dia2");
+    if (!seriesList.contains(Constants.dia2id) && Set.of(selectedList).containsAll(Constants.dia2) ) {
+      seriesList.add(Constants.dia2id);
     }
+    
   }
 }
