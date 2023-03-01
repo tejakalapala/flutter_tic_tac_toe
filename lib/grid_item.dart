@@ -25,23 +25,35 @@ class GridItem extends StatelessWidget {
                     child:  Center(
                               child: (state is ValueAdded)
                                   ? (state.value[index] != "X"
-                                      ?  TweenAnimationBuilder<double>(
-                                        tween: Tween<double>(begin: 0.0, end: 1.0),
+                                      ?    state.value[index] != "" ? 
+                                          TweenAnimationBuilder<double>(
+                                            tween: Tween<double>(begin: 0.0, end: 1.0),
                                         curve: Curves.ease,
-                                        duration: const Duration(seconds: 3),
-                                        builder: (context, double opacity, Widget? child) {
-                                          return Opacity(opacity: opacity,
-                                          child: Text('${state.value[index]}'));
-                                        }
-                                      )
-                                          : const Icon(
-                                          Icons.cancel,
-                                          color: Colors.red,
-                                          size: 40,
-                                        ))
-                                  : const Text(""))
-                        
-                        
+                                        duration: const Duration(seconds: 1),
+                                            builder: (context, double opacity, Widget? child) {
+                                              return Opacity(opacity:opacity ,child: Text('${state.value[index]}',
+                                              style: const TextStyle(color: Colors.black,fontSize: 15,fontWeight: FontWeight.bold),));
+                                            }
+                                          )
+                                          :Container()
+                                          : TweenAnimationBuilder<double>(
+                                      tween: Tween<double>(begin: 0.0, end: 1.0),
+                                        curve: Curves.ease,
+                                        duration: const Duration(seconds: 4),
+                                      builder: (context, double opacity, Widget? child) {
+                                        return Opacity(
+                                          opacity: opacity,
+                                          child: const Icon(
+                                                Icons.cancel,
+                                                color: Colors.red,
+                                                size: 40,
+                                              ),
+                                        );
+                                      }
+                                    )
+                                    )
+                                  : Container()
+                                  )
                         ),
               ),
             ),
